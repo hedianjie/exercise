@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+           
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+        .box-wrapper{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            /* background: #000 */
+        }
+        .box-list{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            margin-top: -12px;
+            font-size: 16px;
+            text-align: right;
+            transform-origin: left 50%;
+            /* background: #fff; */
+            line-height: 24px;
+            height: 24px;
+            padding-right: 10px;
+            color: #fff;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-wrapper box-second" id="box-second"></div>
+    <div class="box-wrapper box-minute" id="box-minute"></div>
+</body>
+<script src="./index.js"></script>
+<script src="json.js"></script>  
+<script>
+
+    // 浏览器宽度和高度比较当做最外层box宽度（box为正方形）
+    const boxWidth = Math.min(document.body.clientWidth || document.documentElement.clientWidth, document.body.clientHeight || document.documentElement.clientHeight);
+    // 秒钟盒子（最外层）
+    const box_second = document.querySelector("#box-second");
+    box_second.style.width = boxWidth + "px";
+    box_second.style.height = boxWidth + "px";
+    // 分钟盒子（第二层）
+    const box_minute = document.querySelector("#box-minute");
+    box_minute.style.width = boxWidth - 140 + "px";
+    box_minute.style.height = boxWidth - 140 + "px";
+
+    
+    const a = new BoxGather("#box-second", {
+        renderList: json.second
+    });
+    const b = new BoxGather("#box-minute", {
+        renderList: json.minute
+    });
+</script>
+</html>
+
+
