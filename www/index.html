@@ -26,6 +26,7 @@
             top: 0;
             bottom: 0;
             margin: auto;
+            transition: all .3s cubic-bezier(0,0,0.58,1.5);
             /* background: #000 */
         }
         .box-list{
@@ -49,6 +50,7 @@
 <body>
     <div class="box-wrapper box-second" id="box-second"></div>
     <div class="box-wrapper box-minute" id="box-minute"></div>
+    <div class="box-wrapper box-hour" id="box-hour"></div>
 </body>
 <script src="./index.js"></script>
 <script src="json.js"></script>  
@@ -64,6 +66,10 @@
     const box_minute = document.querySelector("#box-minute");
     box_minute.style.width = boxWidth - 140 + "px";
     box_minute.style.height = boxWidth - 140 + "px";
+    // 小时盒子（第二层）
+    const box_hour = document.querySelector("#box-hour");
+    box_hour.style.width = boxWidth - 280 + "px";
+    box_hour.style.height = boxWidth - 280 + "px";
 
     
     const a = new BoxGather("#box-second", {
@@ -72,6 +78,25 @@
     const b = new BoxGather("#box-minute", {
         renderList: json.minute
     });
+    const c = new BoxGather("#box-hour", {
+        renderList: json.hour
+    });
+
+    const renderClock = () => {
+        const nowDate = getCurrentTime();
+
+        a.go(nowDate.second);
+        b.go(nowDate.minute);
+        c.go(nowDate.hour);
+    }
+    
+    window.setInterval(() => {
+        renderClock();
+    }, 1000);
+    
+    window.addEventListener("load", () => {
+        renderClock();
+    })
 </script>
 </html>
 
