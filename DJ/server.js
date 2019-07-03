@@ -1,11 +1,13 @@
 const router = require("./router/router.js");
 const controller = require("./controller/controller.js");
+const helper = require("../app/helper/helper.js");
 require("../app/router.js")({router, controller})
 
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
 const path = require("path");
+const querystring = require("querystring");
 
 const {baseURL} = require("../config.js");
 const Mime = require("./Mime.js");
@@ -15,8 +17,12 @@ const getMime = extname => {
 }
 
 http.createServer((req, res) => {
+
+    // 默认数据格式json utf8
+    res.setHeader("Content-Type", "application/json;charset=utf-8");
+    
     // url
-    const urlParse = url.parse(req.url);
+    const urlParse = url.parse(decodeURI(req.url), true);
 
     /*router.ctx.url = */controller.ctx.url = urlParse;
 
@@ -30,6 +36,9 @@ http.createServer((req, res) => {
     // methods
     const methods = req.method;
     /*router.ctx.request = */controller.ctx.method = methods;
+
+    // helper
+    /*router.helper = */controller.helper = helper;
 
     // 如果存在router 执行方法 this指向controller
     if(
