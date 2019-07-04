@@ -1,7 +1,5 @@
 const path = require("path");
 module.exports = {
-
-    
     mysql : {
         //host: "localhost",
         user: "root",
@@ -10,7 +8,7 @@ module.exports = {
         database: "exercise"
     },
 
-    baseURL: path.join(__dirname, "./www"),
+    port: 8080,
 
-    
+    baseURL: path.join(__dirname, "./www"),
 }

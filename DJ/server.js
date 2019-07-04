@@ -8,7 +8,7 @@ const url = require("url");
 const fs = require("fs");
 const path = require("path");
 
-const {baseURL} = require("../config.js");
+const {baseURL, port} = require("../config.js");
 const Mime = require("./Mime.js");
 
 const getMime = extname => {
@@ -70,4 +70,4 @@ http.createServer((req, res) => {
 
     }
 
-}).listen(8081);
+}).listen(port);
